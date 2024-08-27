@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: my-nav-to-pose
+Version: 0.0.0
+Summary: Package for custom navigation to pose functionality
+Maintainer: CROHIN
+Maintainer-email: Guillaume.Crohin@ulb.be
+License: Apache License 2.0
+Requires-Dist: setuptools

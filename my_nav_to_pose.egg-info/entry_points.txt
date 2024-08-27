@@ -1,0 +1,2 @@
+[console_scripts]
+control_husky = my_nav_to_pose.control_husky:main

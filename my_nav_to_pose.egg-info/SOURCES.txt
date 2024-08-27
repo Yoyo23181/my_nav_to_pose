@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+my_nav_to_pose/__init__.py
+my_nav_to_pose/control_husky.py
+my_nav_to_pose.egg-info/PKG-INFO
+my_nav_to_pose.egg-info/SOURCES.txt
+my_nav_to_pose.egg-info/dependency_links.txt
+my_nav_to_pose.egg-info/entry_points.txt
+my_nav_to_pose.egg-info/requires.txt
+my_nav_to_pose.egg-info/top_level.txt
+my_nav_to_pose.egg-info/zip-safe
+resource/my_nav_to_pose
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py
