@@ -11,7 +11,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools', 'nav2-simple-commander',],
     zip_safe=True,
     maintainer='CROHIN',
     maintainer_email='Guillaume.Crohin@ulb.be',
