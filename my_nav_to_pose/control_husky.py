@@ -323,10 +323,13 @@ class TurtleBot4Navigator(BasicNavigator):
             if feedback and i % 5 == 0:
                 print('Executing current waypoint: {0}/{1: <5}'.format(
                     str(feedback.current_waypoint + 1), str(len(poses))), end='\r')
+
+
 def main(args=None):
-    rclpy.init()
+    rclpy.init(args=args)
 
     navigator = TurtleBot4Navigator()
+
     # Start on dock
     if not navigator.getDockedStatus():
         navigator.info('Docking before initialising pose')
@@ -339,15 +342,64 @@ def main(args=None):
     # Wait for Nav2
     navigator.waitUntilNav2Active()
 
-    #    Set goal poses
-    goal_pose = navigator.getPoseStamped([-13.0, 9.0], TurtleBot4Directions.EAST)
-
     # Undock
     navigator.undock()
 
-    # Go to each goal pose
-    navigator.startToPose(goal_pose)
+    # Prepare goal pose options
+    goal_options = [
+        {'name': 'Home',
+         'pose': navigator.getPoseStamped([-1.0, 1.0], TurtleBot4Directions.EAST)},
+
+        {'name': 'Position 1',
+         'pose': navigator.getPoseStamped([10.0, 6.0], TurtleBot4Directions.EAST)},
+
+        {'name': 'Position 2',
+         'pose': navigator.getPoseStamped([-9.0, 9.0], TurtleBot4Directions.NORTH)},
+
+        {'name': 'Position 3',
+         'pose': navigator.getPoseStamped([-12.0, 2.0], TurtleBot4Directions.NORTH_WEST)},
+
+        {'name': 'Position 4',
+         'pose': navigator.getPoseStamped([3.0, -7.0], TurtleBot4Directions.WEST)},
+
+        {'name': 'Exit',
+         'pose': None}
+    ]
+
+    navigator.info('Welcome to the mail delivery service.')
+
+    while True:
+        # Create a list of the goals for display
+        options_str = 'Please enter the number corresponding to the desired robot goal position:\n'
+        for i in range(len(goal_options)):
+            options_str += f'    {i}. {goal_options[i]["name"]}\n'
+
+        # Prompt the user for the goal location
+        raw_input = input(f'{options_str}Selection: ')
+
+        selected_index = 0
+
+        # Verify that the value input is a number
+        try:
+            selected_index = int(raw_input)
+        except ValueError:
+            navigator.error(f'Invalid goal selection: {raw_input}')
+            continue
+
+        # Verify that the user input is within a valid range
+        if (selected_index < 0) or (selected_index >= len(goal_options)):
+            navigator.error(f'Goal selection out of bounds: {selected_index}')
+
+        # Check for exit
+        elif goal_options[selected_index]['name'] == 'Exit':
+            break
+
+        else:
+            # Navigate to requested position
+            navigator.startToPose(goal_options[selected_index]['pose'])
 
     rclpy.shutdown()
+
+
 if __name__ == '__main__':
     main()
