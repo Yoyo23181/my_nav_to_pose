@@ -6,7 +6,7 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    namespace = 'a200_0000'
+    namespace = 'a200_0957'
     setup_path = os.path.join(os.getenv('HOME'), 'clearpath/')
 
     map_path = '/map_storage_simulation.yaml'
@@ -26,7 +26,7 @@ def generate_launch_description():
 
     localization_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
-            FindPackageShare('clearpath_nav2_demos'), '/launch/localization.launch.py'
+            FindPackageShare('my_nav_to_pose'), '/launch/localization.launch.py'
         ]),
         launch_arguments={
             'setup_path': setup_path,
@@ -37,7 +37,7 @@ def generate_launch_description():
 
     navigation_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
-            FindPackageShare('clearpath_nav2_demos'), '/launch/nav2.launch.py'
+            FindPackageShare('my_nav_to_pose'), '/launch/nav2.launch.py'
         ]),
         launch_arguments={
             'setup_path': setup_path,
