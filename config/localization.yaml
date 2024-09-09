@@ -36,10 +36,10 @@ amcl:
     z_max: 0.05
     z_rand: 0.5
     z_short: 0.05
-    scan_topic: "a200_0957/sensors/lidar3d_0/scan"
+    scan_topic: "sensors/lidar3d_0/scan"
 
-    imu_topic: "/a200_0957/sensors/imu_0/data"
-    use_imu: True
+    imu_topic: "sensors/imu_0/data"
+    use_imu: False
     tf_broadcast: true
 
 map_server:

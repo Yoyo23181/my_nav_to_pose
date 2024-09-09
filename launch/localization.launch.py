@@ -84,18 +84,7 @@ def launch_setup(context, *args, **kwargs):
 
     localization = GroupAction([
         PushRosNamespace(namespace),
-        Node(
-            package='my_nav_to_pose',
-            executable='control_husky',
-            name='control_husky',
-            namespace='a200_0957',
-            output='screen',
-            parameters=[file_parameters],
-            remappings=[
-                ('/tf', '/a200_0957/tf'),
-                ('/tf_static', '/a200_0957/tf_static')
-            ]
-        ),
+
 
 
         IncludeLaunchDescription(

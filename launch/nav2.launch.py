@@ -50,21 +50,6 @@ def launch_setup(context, *args, **kwargs):
 
     nav2 = GroupAction([
         PushRosNamespace(namespace),
-        Node(
-            package='my_nav_to_pose',
-            executable='control_husky',
-            name='control_husky',
-            namespace='a200_0957',
-            output='screen',
-            parameters=[{
-                'use_sim_time': True,
-                'yaml_filename': '/map_storage_simulation.yaml'
-            }],
-            remappings=[
-                ('/tf', '/a200_0957/tf'),
-                ('/tf_static', '/a200_0957/tf_static')
-            ]
-        ),
         # Launch Nav2 Navigation stack
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(launch_nav2),
