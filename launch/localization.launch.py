@@ -44,7 +44,7 @@ from launch.substitutions import (
     PathJoinSubstitution
 )
 
-from launch_ros.actions import PushRosNamespace
+from launch_ros.actions import PushRosNamespace, Node
 
 
 ARGUMENTS = [
@@ -84,6 +84,19 @@ def launch_setup(context, *args, **kwargs):
 
     localization = GroupAction([
         PushRosNamespace(namespace),
+        Node(
+            package='my_nav_to_pose',
+            executable='control_husky',
+            name='control_husky',
+            namespace='a200_0957',
+            output='screen',
+            parameters=[file_parameters],
+            remappings=[
+                ('/tf', '/a200_0957/tf'),
+                ('/tf_static', '/a200_0957/tf_static')
+            ]
+        ),
+
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(launch_localization),
@@ -104,8 +117,8 @@ def generate_launch_description():
 
     map_arg = DeclareLaunchArgument(
         'map',
-        default_value=PathJoinSubstitution([pkg_clearpath_nav2_demos, 'maps', 'warehouse.yaml']),
-        # default_value = 'map_storage_simulation.yaml',
+        # default_value=PathJoinSubstitution([pkg_clearpath_nav2_demos, 'maps', 'warehouse.yaml']),
+        default_value = '/map_storage_simulation.yaml',
         description='Full path to map yaml file to load')
 
     ld = LaunchDescription(ARGUMENTS)
